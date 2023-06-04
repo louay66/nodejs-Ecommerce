@@ -6,13 +6,7 @@ const dbConction = require('./config/database');
 const ApiError = require('./utils/ApiError');
 const GlobalMiddleware = require('./middlewares/GlobalMiddleware');
 //Router import module
-const CategoryRoute = require('./api/CategoryRouter');
-const SubcategoryRoute = require('./api/SubCategoryRouter');
-const BrandRoute = require('./api/BrandRouter');
-const ProductRoute = require('./api/ProductRouter');
-const ReviewRoute = require('./api/ReviewRouter');
-const UserRoute = require('./api/UserRouter');
-const AuthRoute = require('./api/AuthRouter');
+const mountRoute = require('./api');
 
 // .env config
 dotenv.config({ path: 'config.env' });
@@ -31,14 +25,8 @@ if (process.env.NODE_ENV === 'devolopment') {
   app.use(morgan(`dev`));
 }
 
-//Router
-app.use('/api/v1/category', CategoryRoute);
-app.use('/api/v1/subcategory', SubcategoryRoute);
-app.use('/api/v1/brand', BrandRoute);
-app.use('/api/v1/product', ProductRoute);
-app.use('/api/v1/review', ReviewRoute);
-app.use('/api/v1/user', UserRoute);
-app.use('/api/v1/auth', AuthRoute);
+// Router
+mountRoute(app);
 
 // creat error and send it to error handling  middleware
 app.all('*', (req, res, next) => {

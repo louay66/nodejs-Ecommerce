@@ -15,9 +15,12 @@ const {
   updateProductValidator,
   deleteProductValidator
 } = require('../utils/validetor/ValiditeProduct');
+
+const ReviewRoute = require('./ReviewRouter');
 const auth = require('../services/AuthService');
 
 const router = express.Router();
+router.use('/:productId/review', ReviewRoute);
 
 router
   .route('/')

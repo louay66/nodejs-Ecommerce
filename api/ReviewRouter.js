@@ -4,7 +4,9 @@ const {
   CreateReview,
   getReview,
   updateReview,
-  DeleteReview
+  DeleteReview,
+  createFilterObj,
+  setProductIdAndUserIdToBody
 } = require('../services/ReviewService');
 
 const {
@@ -19,10 +21,11 @@ const router = express.Router();
 
 router
   .route('/')
-  .get(getReviews)
+  .get(createFilterObj, getReviews)
   .post(
     auth.protect,
     auth.allowTo('user'),
+    setProductIdAndUserIdToBody,
     createReviewValidator,
     CreateReview
   );

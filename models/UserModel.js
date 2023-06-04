@@ -26,6 +26,7 @@ const UserSchema = new mongoose.Schema(
       required: [true, 'password required'],
       minlength: [6, 'password must be at least 6 characters']
     },
+
     passwordChangeAt: Date,
     passwordResetCode: String,
     passwordResetExpires: Date,
@@ -35,7 +36,24 @@ const UserSchema = new mongoose.Schema(
       enum: ['user', 'admin'],
       default: 'user'
     },
-    active: { type: Boolean, default: true }
+    active: { type: Boolean, default: true },
+
+    wishlist: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Product'
+      }
+    ],
+    addresses: [
+      {
+        id: { type: mongoose.Schema.Types.ObjectId },
+        alias: String,
+        details: String,
+        phone: String,
+        city: String,
+        postalCode: String
+      }
+    ]
   },
   { timestamps: true }
 );
